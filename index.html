@@ -1,0 +1,247 @@
+{% extends 'base.html' %}
+{% block title %}Home - Capture Moments{% endblock %}
+{% block content %}
+<!-- Hero Section -->
+<div class="relative bg-gradient-to-br from-teal-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 overflow-hidden">
+    <div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+                Capture Your
+                <span class="bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent">
+                    Special Moments
+                </span>
+            </h1>
+            <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+                Connect with professional photographers for weddings, portraits, events, and more. 
+                Every moment deserves to be beautifully captured.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="{{ url_for('show_photographers') }}" 
+                   class="bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-700 hover:to-blue-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 transform hover:scale-105 shadow-lg">
+                    <i class="fas fa-search mr-2"></i>
+                    Find Photographers
+                </a>
+                <a href="{{ url_for('signup') }}" 
+                   class="border-2 border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 transform hover:scale-105">
+                    <i class="fas fa-camera mr-2"></i>
+                    Join as Photographer
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Section -->
+<div class="bg-white dark:bg-gray-800 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+            <div>
+                <div class="text-3xl font-bold text-teal-600 dark:text-teal-400 mb-2">500+</div>
+                <div class="text-gray-600 dark:text-gray-400">Professional Photographers</div>
+            </div>
+            <div>
+                <div class="text-3xl font-bold text-teal-600 dark:text-teal-400 mb-2">10,000+</div>
+                <div class="text-gray-600 dark:text-gray-400">Happy Clients</div>
+            </div>
+            <div>
+                <div class="text-3xl font-bold text-teal-600 dark:text-teal-400 mb-2">50,000+</div>
+                <div class="text-gray-600 dark:text-gray-400">Photos Captured</div>
+            </div>
+            <div>
+                <div class="text-3xl font-bold text-teal-600 dark:text-teal-400 mb-2">4.9★</div>
+                <div class="text-gray-600 dark:text-gray-400">Average Rating</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Services Section -->
+<div class="bg-gray-50 dark:bg-gray-900 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">What We Offer</h2>
+            <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                From intimate portraits to grand celebrations, we have photographers for every occasion
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 text-center shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow">
+                <div class="w-16 h-16 bg-gradient-to-r from-pink-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-heart text-white text-xl"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Weddings</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">Capture your special day with professional wedding photography</p>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 text-center shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow">
+                <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-user text-white text-xl"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Portraits</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">Professional portraits for individuals, families, and businesses</p>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 text-center shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow">
+                <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-calendar-alt text-white text-xl"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Events</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">Corporate events, parties, and special celebrations</p>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 text-center shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow">
+                <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-building text-white text-xl"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Commercial</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">Product photography and commercial shoots</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Featured Photographers Section -->
+<div class="bg-white dark:bg-gray-800 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Featured Photographers</h2>
+            <p class="text-gray-600 dark:text-gray-400">Meet some of our top-rated professionals</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Photographer 1 -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow">
+                <div class="h-48 bg-gradient-to-br from-pink-400 to-red-400 flex items-center justify-center">
+                    <i class="fas fa-camera text-white text-4xl"></i>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Sarah Johnson</h3>
+                        <div class="flex items-center text-yellow-500">
+                            <i class="fas fa-star"></i>
+                            <span class="ml-1 text-sm text-gray-600 dark:text-gray-400">4.9</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">Wedding & Portrait Photography</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-teal-600 dark:text-teal-400 font-semibold">$150/hr</span>
+                        <a href="#" class="text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300 text-sm font-medium">
+                            View Profile →
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Photographer 2 -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow">
+                <div class="h-48 bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center">
+                    <i class="fas fa-camera text-white text-4xl"></i>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Michael Chen</h3>
+                        <div class="flex items-center text-yellow-500">
+                            <i class="fas fa-star"></i>
+                            <span class="ml-1 text-sm text-gray-600 dark:text-gray-400">4.8</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">Event & Commercial Photography</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-teal-600 dark:text-teal-400 font-semibold">$120/hr</span>
+                        <a href="#" class="text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300 text-sm font-medium">
+                            View Profile →
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Photographer 3 -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow">
+                <div class="h-48 bg-gradient-to-br from-blue-400 to-purple-400 flex items-center justify-center">
+                    <i class="fas fa-camera text-white text-4xl"></i>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Emma Davis</h3>
+                        <div class="flex items-center text-yellow-500">
+                            <i class="fas fa-star"></i>
+                            <span class="ml-1 text-sm text-gray-600 dark:text-gray-400">5.0</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">Portrait & Fashion Photography</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-teal-600 dark:text-teal-400 font-semibold">$180/hr</span>
+                        <a href="#" class="text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300 text-sm font-medium">
+                            View Profile →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-8">
+            <a href="{{ url_for('show_photographers') }}" 
+               class="inline-flex items-center px-6 py-3 border border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white rounded-lg font-medium transition-colors">
+                View All Photographers
+                <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- How It Works Section -->
+<div class="bg-gray-50 dark:bg-gray-900 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">How It Works</h2>
+            <p class="text-gray-600 dark:text-gray-400">Simple steps to book your perfect photographer</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-teal-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-white font-bold text-xl">1</span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Browse & Choose</h3>
+                <p class="text-gray-600 dark:text-gray-400">Explore our curated list of professional photographers</p>
+            </div>
+            
+            <div class="text-center">
+                <div class="w-16 h-16 bg-teal-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-white font-bold text-xl">2</span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Book & Confirm</h3>
+                <p class="text-gray-600 dark:text-gray-400">Select your date, time, and book your session</p>
+            </div>
+            
+            <div class="text-center">
+                <div class="w-16 h-16 bg-teal-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-white font-bold text-xl">3</span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Capture & Enjoy</h3>
+                <p class="text-gray-600 dark:text-gray-400">Get your beautiful photos and cherish the memories</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CTA Section -->
+<div class="bg-gradient-to-r from-teal-600 to-blue-600 py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold text-white mb-4">Ready to Capture Your Moments?</h2>
+        <p class="text-teal-100 mb-8 text-lg">Join thousands of happy clients who trust us with their special occasions</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{{ url_for('signup') }}" 
+               class="bg-white text-teal-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-semibold transition-colors">
+                Get Started Today
+            </a>
+            <a href="{{ url_for('show_photographers') }}" 
+               class="border-2 border-white text-white hover:bg-white hover:text-teal-600 px-8 py-3 rounded-lg font-semibold transition-colors">
+                Browse Photographers
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %} 
