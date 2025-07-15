@@ -1,0 +1,222 @@
+{% extends 'base.html' %}
+{% block title %}Book Photographer - Capture Moments{% endblock %}
+{% block content %}
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Book Your Session</h1>
+            <p class="text-gray-600 dark:text-gray-400 mt-2">Schedule your photography session with {{ photographer.name }}</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Booking Form -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">Session Details</h2>
+                
+                <form method="POST" class="space-y-6">
+                    <div>
+                        <label for="date" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            <i class="fas fa-calendar mr-2 text-teal-600"></i>Date
+                        </label>
+                        <input 
+                            type="date" 
+                            id="date" 
+                            name="date" 
+                            required
+                            class="block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors"
+                            min="{{ today }}"
+                        >
+                    </div>
+
+                    <div>
+                        <label for="time" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            <i class="fas fa-clock mr-2 text-teal-600"></i>Time
+                        </label>
+                        <input 
+                            type="time" 
+                            id="time" 
+                            name="time" 
+                            required
+                            class="block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors"
+                        >
+                    </div>
+
+                    <div>
+                        <label for="duration" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            <i class="fas fa-hourglass-half mr-2 text-teal-600"></i>Duration (hours)
+                        </label>
+                        <select 
+                            id="duration" 
+                            name="duration" 
+                            required
+                            class="block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors"
+                        >
+                            <option value="">Select duration</option>
+                            <option value="1">1 hour</option>
+                            <option value="2">2 hours</option>
+                            <option value="3">3 hours</option>
+                            <option value="4">4 hours</option>
+                            <option value="5">5 hours</option>
+                            <option value="6">6 hours</option>
+                            <option value="8">8 hours</option>
+                            <option value="10">10 hours</option>
+                            <option value="12">12 hours</option>
+                        </select>
+                    </div>
+
+                    <div class="pt-4">
+                        <button 
+                            type="submit" 
+                            class="w-full bg-gradient-to-r from-teal-600 to-blue-600 hover:from-teal-700 hover:to-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                        >
+                            <i class="fas fa-calendar-check mr-2"></i>
+                            Book Session
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Photographer Info & Booking Summary -->
+            <div class="space-y-6">
+                <!-- Photographer Card -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full flex items-center justify-center">
+                            <i class="fas fa-camera text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">{{ photographer.name }}</h3>
+                            <p class="text-gray-600 dark:text-gray-400">{{ photographer.specialty or 'General Photography' }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                            <i class="fas fa-map-marker-alt w-5 text-teal-600"></i>
+                            <span class="ml-2">{{ photographer.location or 'Location not specified' }}</span>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                            <i class="fas fa-dollar-sign w-5 text-teal-600"></i>
+                            <span class="ml-2">${{ photographer.price_per_hour }}/hour</span>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                            <i class="fas fa-star w-5 text-teal-600"></i>
+                            <span class="ml-2">4.8 ★ (24 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking Summary -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Booking Summary</h3>
+                    
+                    <div class="space-y-3">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600 dark:text-gray-400">Photographer:</span>
+                            <span class="font-medium text-gray-900 dark:text-white">{{ photographer.name }}</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600 dark:text-gray-400">Date:</span>
+                            <span class="font-medium text-gray-900 dark:text-white" id="summary-date">-</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600 dark:text-gray-400">Time:</span>
+                            <span class="font-medium text-gray-900 dark:text-white" id="summary-time">-</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600 dark:text-gray-400">Duration:</span>
+                            <span class="font-medium text-gray-900 dark:text-white" id="summary-duration">-</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600 dark:text-gray-400">Rate:</span>
+                            <span class="font-medium text-gray-900 dark:text-white">${{ photographer.price_per_hour }}/hr</span>
+                        </div>
+                        <hr class="border-gray-200 dark:border-gray-600">
+                        <div class="flex justify-between text-lg font-semibold">
+                            <span class="text-gray-900 dark:text-white">Total:</span>
+                            <span class="text-teal-600 dark:text-teal-400" id="summary-total">$0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Card -->
+                <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-6">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-info-circle text-blue-600 dark:text-blue-400 text-lg"></i>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-blue-800 dark:text-blue-200">Important Information</h3>
+                            <div class="mt-2 text-sm text-blue-700 dark:text-blue-300">
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li>Please review your booking details before confirming</li>
+                                    <li>Payment will be processed after photographer accepts</li>
+                                    <li>Cancellation policy: 24 hours notice required</li>
+                                    <li>Contact photographer for special requirements</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- What's Included -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">What's Included</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                            <i class="fas fa-check text-green-600 w-5"></i>
+                            <span class="ml-2">Professional photography session</span>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                            <i class="fas fa-check text-green-600 w-5"></i>
+                            <span class="ml-2">High-resolution digital photos</span>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                            <i class="fas fa-check text-green-600 w-5"></i>
+                            <span class="ml-2">Basic photo editing</span>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                            <i class="fas fa-check text-green-600 w-5"></i>
+                            <span class="ml-2">Online gallery access</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Update booking summary in real-time
+    const dateInput = document.getElementById('date');
+    const timeInput = document.getElementById('time');
+    const durationSelect = document.getElementById('duration');
+    const pricePerHour = parseInt('{{ photographer.price_per_hour }}');
+
+    function updateSummary() {
+        const date = dateInput.value;
+        const time = timeInput.value;
+        const duration = durationSelect.value;
+        
+        document.getElementById('summary-date').textContent = date || '-';
+        document.getElementById('summary-time').textContent = time || '-';
+        document.getElementById('summary-duration').textContent = duration ? `${duration} hour(s)` : '-';
+        
+        if (duration) {
+            const total = duration * pricePerHour;
+            document.getElementById('summary-total').textContent = `$${total}`;
+        } else {
+            document.getElementById('summary-total').textContent = '$0';
+        }
+    }
+
+    dateInput.addEventListener('change', updateSummary);
+    timeInput.addEventListener('change', updateSummary);
+    durationSelect.addEventListener('change', updateSummary);
+
+    // Set minimum date to today
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.min = today;
+</script>
+{% endblock %} 
