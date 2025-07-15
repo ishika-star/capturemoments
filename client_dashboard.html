@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+{% block title %}Client Dashboard - Capture Moments{% endblock %}
+{% block content %}
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <!-- Header -->
+    <div class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Welcome back, {{ session['username'] }}!</h1>
+                    <p class="text-gray-600 dark:text-gray-400">Manage your bookings and discover amazing photographers</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <button class="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg transition-colors">
+                        <i class="fas fa-plus mr-2"></i>New Booking
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center">
+                    <div class="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+                        <i class="fas fa-calendar-check text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Total Bookings</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ my_bookings|length if my_bookings else 0 }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center">
+                    <div class="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
+                        <i class="fas fa-check-circle text-green-600 dark:text-green-400"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Completed</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-white">
+                            {{ my_bookings|selectattr('status', 'equalto', 'completed')|list|length if my_bookings else 0 }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center">
+                    <div class="p-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg">
+                        <i class="fas fa-clock text-yellow-600 dark:text-yellow-400"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Pending</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-white">
+                            {{ my_bookings|selectattr('status', 'equalto', 'pending')|list|length if my_bookings else 0 }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center">
+                    <div class="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
+                        <i class="fas fa-star text-purple-600 dark:text-purple-400"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Reviews Given</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-white">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Recent Bookings -->
+            <div class="lg:col-span-2">
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                        <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Recent Bookings</h2>
+                    </div>
+                    <div class="p-6">
+                        {% if my_bookings %}
+                            <div class="space-y-4">
+                                {% for booking in my_bookings[:5] %}
+                                <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="w-12 h-12 bg-gradient-to-r from-teal-500 to-blue-600 rounded-lg flex items-center justify-center">
+                                            <i class="fas fa-camera text-white"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-medium text-gray-900 dark:text-white">{{ booking.photographer.name }}</h3>
+                                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                                {{ booking.date.strftime('%B %d, %Y') }} at {{ booking.time.strftime('%I:%M %p') }}
+                                            </p>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400">{{ booking.duration }} hour(s)</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                                            {% if booking.status == 'pending' %}bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400
+                                            {% elif booking.status == 'accepted' %}bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400
+                                            {% elif booking.status == 'rejected' %}bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400
+                                            {% else %}bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300{% endif %}">
+                                            {{ booking.status|title }}
+                                        </span>
+                                        <div class="mt-2">
+                                            <a href="{{ url_for('profile', photographer_id=booking.photographer.id) }}" 
+                                               class="text-sm text-teal-600 hover:text-teal-500 dark:text-teal-400 dark:hover:text-teal-300">
+                                                View Details
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% if my_bookings|length > 5 %}
+                                <div class="mt-4 text-center">
+                                    <a href="{{ url_for('my_bookings') }}" class="text-teal-600 hover:text-teal-500 dark:text-teal-400 dark:hover:text-teal-300 font-medium">
+                                        View all bookings
+                                    </a>
+                                </div>
+                            {% endif %}
+                        {% else %}
+                            <div class="text-center py-8">
+                                <div class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-calendar-plus text-gray-400 text-xl"></i>
+                                </div>
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">No bookings yet</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-4">Start by exploring our talented photographers</p>
+                                <a href="{{ url_for('show_photographers') }}" class="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg transition-colors">
+                                    Browse Photographers
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions & Featured Photographers -->
+            <div class="space-y-6">
+                <!-- Quick Actions -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                        <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Quick Actions</h2>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <a href="{{ url_for('show_photographers') }}" class="flex items-center p-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                            <i class="fas fa-search mr-3 text-teal-600"></i>
+                            <span>Find Photographers</span>
+                        </a>
+                        <a href="{{ url_for('my_bookings') }}" class="flex items-center p-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                            <i class="fas fa-calendar mr-3 text-blue-600"></i>
+                            <span>View All Bookings</span>
+                        </a>
+                        <a href="#" class="flex items-center p-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                            <i class="fas fa-star mr-3 text-yellow-600"></i>
+                            <span>Write Reviews</span>
+                        </a>
+                        <a href="#" class="flex items-center p-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                            <i class="fas fa-cog mr-3 text-gray-600"></i>
+                            <span>Account Settings</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Featured Photographers -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                        <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Featured Photographers</h2>
+                    </div>
+                    <div class="p-6">
+                        {% if photographers %}
+                            <div class="space-y-4">
+                                {% for photographer in photographers[:3] %}
+                                <div class="flex items-center space-x-3 p-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-camera text-white"></i>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <h3 class="text-sm font-medium text-gray-900 dark:text-white truncate">{{ photographer.name }}</h3>
+                                        <p class="text-xs text-gray-600 dark:text-gray-400">{{ photographer.specialty or 'General' }}</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">${{ photographer.price_per_hour }}/hr</p>
+                                    </div>
+                                    <a href="{{ url_for('profile', photographer_id=photographer.id) }}" 
+                                       class="text-xs bg-teal-600 hover:bg-teal-700 text-white px-2 py-1 rounded transition-colors">
+                                        View
+                                    </a>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="mt-4 text-center">
+                                <a href="{{ url_for('show_photographers') }}" class="text-sm text-teal-600 hover:text-teal-500 dark:text-teal-400 dark:hover:text-teal-300">
+                                    View all photographers
+                                </a>
+                            </div>
+                        {% else %}
+                            <div class="text-center py-4">
+                                <p class="text-gray-600 dark:text-gray-400 text-sm">No photographers available</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Notifications -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                        <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Notifications</h2>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-center py-4">
+                            <div class="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-bell text-gray-400"></i>
+                            </div>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">No new notifications</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
